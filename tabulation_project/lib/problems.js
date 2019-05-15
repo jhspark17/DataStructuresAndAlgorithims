@@ -28,7 +28,7 @@ function stepper(nums) {
         let num = nums[i];
         if (table[i] === false) continue;
         for (let j = 1; j <= num; j++){
-            table[j + i] = true;
+            table[i + j] = true;
         }
     }
     return table[table.length - 1] 
@@ -44,9 +44,20 @@ function stepper(nums) {
 // Examples:
 //
 // maxNonAdjacentSum([2, 7, 9, 3, 4])   // => 15, because 2 + 9 + 4
-// maxNonAdjacentSum([4,2,1,6])         // => 10, because 4 + 6 
+// maxNonAdjacentSum([4,,21,6])         // => 10, because 4 + 6 
 function maxNonAdjacentSum(nums) {
+    if (nums.length === 0) return 0;
+    let table = new Array(nums.length).fill(0);
+    table[0] = nums[0];
 
+    for (let i = 1; i < table.length; i++) {
+        let skipLeftNeighbor = table[i - 2] === undefined ? 0 : table[i - 2];
+        let includeThisNum = nums[i] + skipLeftNeighbor;
+        let notIncludeThisNum = table[i - 1];
+        table[i] = Math.max(includeThisNum, notIncludeThisNum);
+    }
+
+    return table[table.length - 1]
 }
 
 
@@ -63,7 +74,19 @@ function maxNonAdjacentSum(nums) {
 // minChange([1, 5, 10, 25], 15)    // => 2, because 10 + 5 = 15
 // minChange([1, 5, 10, 25], 100)   // => 4, because 25 + 25 + 25 + 25 = 100
 function minChange(coins, amount) {
+    let table = new Array(amount + 1).fill(Infinity);
+    table[0] = 0;
 
+    coins.forEach(val => {
+        for (let amt = 0; amt < table.length; amt++) {
+            for (let qty = 0; qty * val <= amt; qty++) {
+               remainder = amt - qty * val;
+               let attempt = table[remainder] + qty
+               if (attempt < table[amt]) table[amt] = attempt;
+            }
+        }
+    })
+    return table[table.length - 1];
 }
 
 
