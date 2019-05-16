@@ -10,7 +10,7 @@ function selectionSort(arr) {//[ 2, -1, 4, 3, 7, 3 ]
 	
 	let minIdx = null;
 	for (let i = 0; i < arr.length; i++) {
-		let num = arr[i];
+		let num = arr[i];//2
 		let minimum = Infinity;
 		for (let j = i; j < arr.length; j++) {
 			let tempMin = arr[j];
@@ -22,6 +22,7 @@ function selectionSort(arr) {//[ 2, -1, 4, 3, 7, 3 ]
 		}
 		arr[i] = minimum;
 		arr[minIdx] = num;
+		// arr = swap(arr, i, minIdx);
 	}
 	return arr;
 }
