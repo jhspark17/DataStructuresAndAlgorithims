@@ -149,19 +149,21 @@ class LinkedList {
 			if (index >= this.length) return false;
 			let newNode = new Node(val);
 			let currentNode = this.head;
-      let i = 0;
-      while (true) {
+			let i = 0;
+		
+      while (currentNode) {
         if (i === index - 1) {
 					let nextNode = currentNode.next;
 					currentNode.next = newNode;
 					newNode.next = nextNode;
-					++this.length;
-          return true;
+       
         } else {
           currentNode = currentNode.next;
         }
         i++;
-      }
+			}
+			++this.length;
+			return true
     }
 
     // TODO: Implement the remove method here
