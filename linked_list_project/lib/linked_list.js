@@ -146,23 +146,45 @@ class LinkedList {
 
     // TODO: Implement the insert method here
     insert(index, val) {
+			if (index >= this.length) return false;
+			let newNode = new Node(val);
 			let currentNode = this.head;
       let i = 0;
-      while (i < this.length) {
-        if (i === index) {
-          currentNode.value = val;
+      while (true) {
+        if (i === index - 1) {
+					let nextNode = currentNode.next;
+					currentNode.next = newNode;
+					newNode.next = nextNode;
+					++this.length;
           return true;
         } else {
           currentNode = currentNode.next;
         }
         i++;
       }
-      return false;
     }
 
     // TODO: Implement the remove method here
     remove(index) {
-
+			if (index >= this.length) return;
+			let currentNode = this.head;
+			if (this.length === 1) {
+				this.head = null;
+				this.tail = null;
+				return currentNode;
+			}
+			let i = 0;
+			while (true) {
+				if (i === index - 1) {
+					let lostNode = currentNode.next;
+					currentNode.next = lostNode.next;
+					--this.length
+					return lostNode;
+				} else {
+					currentNode = currentNode.next;
+				}
+				i++
+			}
     }
 
     // TODO: Implement the size method here
