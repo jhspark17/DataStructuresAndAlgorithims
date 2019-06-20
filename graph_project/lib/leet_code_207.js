@@ -2,5 +2,9 @@
 //  https://leetcode.com/problems/course-schedule/
 
 function canFinish(numCourses, prerequisites) {
+  const graph = createGraph(prerequisites);
+}
 
+function createGraph(prerequisites) {
+  
 }
